@@ -1,19 +1,31 @@
 def longestCommonPrefix(strs):
-    def longestPrefixToString(s1, s2):
-        s = ""
-        for ind in range(len(s1)):
-            try:
-                if s2[0:ind + 1] == s + s1[ind]:
-                    s += s1[ind]
-                else:
-                    break
-            except:
-                break
-        return s
+    def longestPrefixToString(sts, s2):
+        prefix = []
+        for s1 in sts:
+            for pre in range(0, len(s1)):
+                s = ''
+                for nex in range(pre, len(s1)):
+                    s += s1[nex]
+                    try:
+                        s2.index(s)
+                    except ValueError:
+                        s = '' if pre == nex else s[0:len(s) - 1]
+                        break
+                print("S is", s)
+                if s != '':
+                    if len(prefix) == 0:
+                        prefix.append(s)
+                    else:
+                        if len(s) >= len(prefix[0]) and s != prefix[0]:
+                            prefix.append(s)
 
-    prefix = strs[0]
-    for i in range(1, len(strs)):
-        prefix = longestPrefixToString(prefix, strs[i])
-        if prefix == "":
-            return ""
-    return prefix
+        return prefix
+
+    abc = strs[0:1]
+    for idex in strs:
+        print("abc is ", abc, "idex is", idex)
+        abc = longestPrefixToString(abc, idex)
+    print(abc)
+
+
+longestCommonPrefix(["reflower", "flow", "flight"])
